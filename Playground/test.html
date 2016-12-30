@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Popup</title>
+	</head>
+	<body>
+		<form>
+			<p>
+				Clear text should not be affected.
+			</p>
+			<p>
+				|<input type="text" value="first textbox" name="firstname" />|
+			</p>
+			<div>
+				<input type="text" value="second textbox" id="secondid" />
+			</div>
+			<div>
+				<input type="password" value="password here" />
+			</div>
+			<div>
+				<input type="text" id="secondid" /> (Empty input field)
+			</div>
+			<div>
+				<input type="text" id="username" /> (Empty username field)
+				<input type="text" name="username" /> (Empty username field)
+				<input type="text" name="username" value="My username" /> (Prepopulated username field)
+				<input type="text" name="username" value="crYP7AAB1IAARPAQZRQ==" /> (Prepopulated encrypted username field)
+			</div>
+			<div>
+				<textarea id="firsttextid" name="firsttextname" onclick="this.style.color=['green','red','blue','yellow'].splice(Math.random()*4,1).toString();;">Text area with some random text. Click to change color.</textarea>
+			</div>
+			<div>
+				<textarea id="firsttextid" name="firsttextname">crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=</textarea>
+			</div>
+			<div id="appendNew">
+				<input type="button" value="Add New Textarea" onclick="document.querySelectorAll('#appendNew')[0].appendChild(document.createElement('textarea')); return false;" />
+			</div>
+			<div>
+				<input type="text" value="Click this box to delete" onclick="this.parentNode.removeChild(this);" />
+			</div>
+			<p>
+				<input type="submit" />
+			</p>
+			<p>
+				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+				<b>This text was never encrypted.</b>
+				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+				<b>Neither was this.</b>
+				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+			</p>
+			<p>
+				START<span>crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=</span>END
+			</p>
+		</form>
+	</body>
+</html>

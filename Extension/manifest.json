@@ -1,0 +1,41 @@
+{
+	"name": "Geheim",
+	"version": "1.0.0",
+	"description": "Applies encryption on all text you enter on any website in order to make it only accessible by yourself.",
+	"icons":
+	{
+		"128": "icon.png"
+	},
+	"background":
+	{
+		"scripts":
+		[
+			"background.js"
+		]
+	},
+	"content_scripts": 
+	[
+		{
+			"matches": ["http://*/*", "file://*/*"], "js": ["Geheim_content_script.js"]
+		}
+	],
+	"web_accessible_resources":
+	[
+		"images/safe.png",
+		"images/unsafe.png",
+		"images/hover.png"
+	],
+	"permissions":
+	[
+		"tabs",
+		"storage"
+	],
+	"browser_action":
+	{
+		"default_name": "Geheim",
+		"default_icon": "geheim.png",
+		"default_popup": "popup.html"
+	},
+	"manifest_version": 2,
+	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self';"
+}
