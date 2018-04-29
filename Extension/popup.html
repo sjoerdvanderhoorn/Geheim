@@ -1,36 +1,59 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Popup</title>
+		<title>Geheim</title>
 		<link href="popup.css" rel="stylesheet" type="text/css">
 		<script src="popup.js"></script>
 	</head>
 	<body>
-		<div>
-			<input type="checkbox" id="active" /> Active
-		</div>
-		<hr size="1"/>
-		<div>
-			Encryption function:
-			<textarea id="encryption-function" rows="10" cols="100"></textarea>
-		</div>
-		<div>
-			Encryption password:
-			<textarea id="encryption-password" rows="3" cols="100"></textarea>
-		</div>
-		<hr size="1"/>
-		<div>
-			Decryption function:
-			<textarea id="decryption-function" rows="10" cols="100"></textarea>
-		</div>
-		<div>
-			Decryption password:
-			<textarea id="decryption-password" rows="3" cols="100"></textarea>
-		</div>
-		<hr size="1"/>
-		<div>
-			<button id="save">Save and close</button>
-			<button id="cancel">Cancel</button>
-		</div>
+		
+		<h2>Encryption Keys</h2>
+		<ul id="keys"></ul>
+		<p><button>Add Key</button></p>
+		
+		<h2>Cryptographic Methods</h2>
+		<ul id="methods"></ul>
+		<p><button>Add Method</button></p>
+		
+		<textarea id="settings">
+{
+	"methods":
+	[
+		{
+			"id": "b64",
+			"name": "Base 64",
+			"encrypt": "function(data, key){return btoa(data);}",
+			"decrypt": "function(data, key){return atob(data);}",
+			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+		},
+		{
+			"id": "b85",
+			"name": "Base 85",
+			"encrypt": "function(data, key){return btoa(data);}",
+			"decrypt": "function(data, key){return atob(data);}",
+			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+		},
+		{
+			"id": "asc",
+			"name": "ASCII",
+			"encrypt": "function(data, key){return btoa(data);}",
+			"decrypt": "function(data, key){return atob(data);}",
+			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+		}
+	],
+	"keys":
+	[
+		{"id": "10000", "name": "First Key", "methodid": "b64", "encryptkey": "aaaaaaaa", "decryptkey": "aaaaaaaa"},
+		{"id": "20000", "name": "Second Key", "methodid": "b64", "encryptkey": "bbbbbbbb", "decryptkey": "bbbbbbbb"},
+		{"id": "30000", "name": "Third Key", "methodid": "b64", "encryptkey": "cccccccc", "decryptkey": "cccccccc"},
+		{"id": "40000", "name": "ASC Key", "methodid": "asc", "encryptkey": "cccccccc", "decryptkey": "cccccccc"}
+	]
+}		
+		</textarea>
+		<button id="save">Save</button>
+		<button id="reset">Reset</button>
+		<!--
+		<button id="cancel">Cancel</button>
+		-->
 	</body>
 </html>

@@ -1,6 +1,6 @@
 {
 	"name": "Geheim",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Applies encryption on all text you enter on any website in order to make it only accessible by yourself.",
 	"icons":
 	{
@@ -16,14 +16,18 @@
 	"content_scripts": 
 	[
 		{
-			"matches": ["http://*/*", "file://*/*"], "js": ["Geheim_content_script.js"]
+			"run_at": "document_start",
+			"matches": ["http://*/*", "https://*/*", "file://*/*"],
+			"js": ["geheim_content_script.js"],
+			"css": ["geheim_content_script_inject.css"]
 		}
 	],
 	"web_accessible_resources":
 	[
 		"images/safe.png",
 		"images/unsafe.png",
-		"images/hover.png"
+		"images/hover.png",
+		"geheim_content_script_inject.js"
 	],
 	"permissions":
 	[

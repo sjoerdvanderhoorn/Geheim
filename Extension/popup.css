@@ -1,15 +1,67 @@
-/**
- * Copyright (c) 2011 The Chromium Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
-
-body {
-  margin: 0px;
-  padding: 0px;
+body
+{
+	background-color: #f1f1f1;
+	color: #000000;
+	margin: 0;
+	padding: 10px;
+	width: 600px;
+	cursor: default;
 }
 
-#map {
-  width: 512px;
-  height: 512px;
+ul
+{
+	border-left: 3px solid #4caf50;
+	background-color: #ffffff;
+	list-style-type: none;
+	padding: 0px;
+	max-height: 200px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	cursor: default;
+}
+li
+{
+	padding: 5px;
+	width: 100%;
+}
+li.method
+{
+	font-weight: bold;
+	position: sticky;
+	top: 0px;
+	background-color: #ffffff;
+}
+li.key:hover
+{
+	background-color: #f1f1f1;
+	cursor: pointer;
+}
+
+ul#methods li:hover
+{
+	background-color: #f1f1f1;
+	cursor: pointer;
+}
+
+button
+{
+	border: none;
+	font-weight: bold;
+	color: #ffffff;
+	background: #c1c1c1;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+button:hover
+{
+	background: #989da1;
+	text-decoration: none;
+}
+
+textarea
+{
+	width: 100%;
+	height: 80px;
 }

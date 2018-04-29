@@ -1,0 +1,102 @@
+<script>
+
+// Save original Getter and Setter
+var originalGetter = HTMLTextAreaElement.prototype.__lookupGetter__("value");
+var originalSetter = HTMLTextAreaElement.prototype.__lookupSetter__("value");
+
+// Define new Getter and Setter
+HTMLTextAreaElement.prototype.__defineGetter__("value", function()
+{
+	var val = "";
+	if (this.originalValue)
+	{
+		val = this.originalValue;
+		this.originalValue = null;
+	}
+	else
+	{
+		val = "CRYPT" + btoa(originalGetter.call(this));
+	}
+	return val;
+});
+
+HTMLTextAreaElement.prototype.__defineGetter__("encryptedValue", function()
+{
+	this.originalValue = originalGetter.call(this);
+	return "CRYPT" + btoa(this.originalValue);
+});
+
+HTMLTextAreaElement.prototype.__defineSetter__("value", function(val)
+{
+	if (!this.originalValue)
+	{
+		if (val.substr(0, 5) == "CRYPT")
+		{
+			val = atob(val.substring(5));
+		}
+	}
+	originalSetter.call(this, val);
+});
+
+// Force all fields to reset their value so they use the new Getter and Setter
+window.onload = function()
+{
+	[].forEach.call(document.querySelectorAll("textarea"), function(el)
+	{
+		el.value = originalGetter.call(el);
+	});
+}
+
+</script>
+
+<form action="https://httpbin.org/post" method="post" target="internalframe" id="myForm">
+	<textarea name="test1" id="test1" style="width: 300px; height: 100px;">CRYPTVEVTVA==</textarea><span id="output1"></span><br/>
+	<textarea name="test2" id="test2" style="width: 300px; height: 100px;">unencrypted value 1</textarea><span id="output2"></span><br/>
+	<textarea name="test3" id="test3" style="width: 300px; height: 100px;">CRYPTU0VDT05EIFRFU1Q=</textarea><span id="output3"></span><br/>
+	<textarea name="test4" id="test4" style="width: 300px; height: 100px;">unencrypted value 2</textarea><span id="output4"></span><br/>
+	<input type="button" id="random" value="Random value" />
+	<input type="button" id="read" value="Read value" />
+	<input type="submit" /><br/>
+</form>
+
+<iframe name="internalframe" src="about:blank" style="width: 700px; height: 300px;"></iframe>
+
+<script>
+
+// Event handling
+
+document.forms["myForm"].onsubmit = function()
+{
+	[].forEach.call(document.querySelectorAll("textarea"), function(el)
+	{
+		el.value = el.encryptedValue;
+	});
+
+	window.setTimeout(function()
+	{
+		[].forEach.call(document.querySelectorAll("textarea"), function(el)
+		{
+			el.value = el.value;
+		});
+	}, 0);
+}
+
+read.onclick = function()
+{
+	output1.innerText = test1.value;
+	output2.innerText = test2.value;
+	output3.innerText = test3.value;
+	output4.innerText = test4.value;
+}
+
+random.onclick = function()
+{
+	test1.value = "Random value " + Math.random();
+}
+
+// Read value, set new value, and read the new value
+test4.value = "new value";
+
+
+
+</script>

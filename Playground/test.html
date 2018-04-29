@@ -24,13 +24,15 @@
 				<input type="text" id="username" /> (Empty username field)
 				<input type="text" name="username" /> (Empty username field)
 				<input type="text" name="username" value="My username" /> (Prepopulated username field)
-				<input type="text" name="username" value="crYP7AAB1IAARPAQZRQ==" /> (Prepopulated encrypted username field)
+				<input type="text" name="username" value=":geheim:b64:10000:U2ltcGxlIHRleHQ=:" /> (Prepopulated encrypted username field)
 			</div>
 			<div>
 				<textarea id="firsttextid" name="firsttextname" onclick="this.style.color=['green','red','blue','yellow'].splice(Math.random()*4,1).toString();;">Text area with some random text. Click to change color.</textarea>
+				<textarea id="secondtextid" name="firsttextname">:geheim:b64:10000:U2ltcGxlIHRleHQ=:</textarea>
 			</div>
-			<div>
-				<textarea id="firsttextid" name="firsttextname">crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=</textarea>
+			<div id="readTextareas">
+				<input type="button" value="Read First Textarea" onclick="alert(document.querySelectorAll('#firsttextid')[0].value)" />
+				<input type="button" value="Read Second Textarea" onclick="alert(document.querySelectorAll('#secondtextid')[0].value)" />
 			</div>
 			<div id="appendNew">
 				<input type="button" value="Add New Textarea" onclick="document.querySelectorAll('#appendNew')[0].appendChild(document.createElement('textarea')); return false;" />
@@ -39,18 +41,60 @@
 				<input type="text" value="Click this box to delete" onclick="this.parentNode.removeChild(this);" />
 			</div>
 			<p>
-				<input type="submit" />
-			</p>
-			<p>
-				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+				1:geheim:b64:10000:U2ltcGxlIHRleHQ=:2:geheim:b64:10000:U2ltcGxlIHRleHQ=:3:geheim:b64:10000:U2ltcGxlIHRleHQ=:
 				<b>This text was never encrypted.</b>
-				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+				:geheim:b64:10000:QW5vdGhlciBzaW1wbGUgdGV4dA==:
 				<b>Neither was this.</b>
-				crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=
+				:geheim:b64:10000:U2ltcGxlIHRleHQ=:
 			</p>
 			<p>
-				START<span>crYP7GRFJIEUKAUURTjMTCgMDChZEORxYJ0s=</span>END
+				START<span>:geheim:b64:10000:U2ltcGxlIHRleHQ=:</span>END
+				START<span>:geheim:unknown1:unknown2:Unknownenctyption:</span>END
 			</p>
 		</form>
+		<hr>
+		<textarea style="width: 300px; height: 40px;">:geheim:unknown:1sdf0000:somethingbad:</textarea><br/>
+		<hr>
+		<form action="https://httpbin.org/post" method="post" target="internalframe" id="myForm">
+			<textarea name="test1" id="test1" style="width: 300px; height: 40px;">:geheim:b64:10000:VEVTVA==:</textarea><span id="output1"></span><br/>
+			<textarea name="test2" id="test2" style="width: 300px; height: 40px;">unencrypted value 1</textarea><span id="output2"></span><br/>
+			<textarea name="test3" id="test3" style="width: 300px; height: 40px;">:geheim:b64:10000:U0VDT05EIFRFU1Q=:</textarea><span id="output3"></span><br/>
+			<textarea name="test4" id="test4" style="width: 300px; height: 40px;">unencrypted value 2</textarea><span id="output4"></span><br/>
+			<input name="test5" id="test5" value="unencrypted value 3" />
+			<input name="test6" id="test6" value=":geheim:b64:10000:U2ltcGxlIHRleHQ=:" />
+			<input type="button" id="random" value="Random value" />
+			<input type="button" id="read" value="Read value" />
+			<input type="submit" value="Submit" /><br/>
+		</form>
+
+		<iframe name="internalframe" src="about:blank" style="width: 700px; height: 300px;"></iframe>
+
+	
+		<script>
+
+		// Event handling
+		document.forms["myForm"].onsubmit = function()
+		{
+			document.forms["myForm"].querySelectorAll("input[type=submit]")[0].value = "Submitted";
+		}
+
+		read.onclick = function()
+		{
+			output1.innerText = test1.value;
+			output2.innerText = test2.value;
+			output3.innerText = test3.value;
+			output4.innerText = test4.value;
+		}
+
+		random.onclick = function()
+		{
+			test1.value = "Random value " + Math.random();
+		}
+
+		// Set field to new value
+		test4.value = "new value";
+
+
+		</script>
 	</body>
 </html>

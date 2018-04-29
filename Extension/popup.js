@@ -1,10 +1,45 @@
-function getCurrentTab(callback)
+var settings = {methods: [], keys: []};
+
+chrome.storage.sync.get(["geheimSettings"], function(data)
 {
-	var queryInfo = {active: true, currentWindow: true};
-	chrome.tabs.query(queryInfo, function(tabs)
+	if(data["geheimSettings"])
 	{
-		var tab = tabs[0];
-		callback(tab);
+		settings = JSON.parse(data["geheimSettings"]);
+		getMethods();
+		getKeys();
+	}
+});
+
+function getMethods()
+{
+	var methodsEl = document.getElementById("methods");
+	settings.methods.sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function(method)
+	{
+		var methodEl = document.createElement("li");
+		methodEl.innerHTML = method.name;
+		methodsEl.appendChild(methodEl);
+	});
+}
+
+function getKeys()
+{
+	var keysEl = document.getElementById("keys");
+	settings.methods.sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function (method)
+	{
+		var methodEl = document.createElement("li");
+		methodEl.className = "method";
+		methodEl.innerHTML = method.name;
+		keysEl.appendChild(methodEl);
+		settings.keys.filter(k => k.methodid == method.id).sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function (key)
+		{
+			var keyEl = document.createElement("li");
+			keyEl.className = "key";
+			keyEl.innerHTML = key.name;
+			keyEl.setAttribute("geheimdialog", true);
+			keyEl.setAttribute("methodid", key.methodid);
+			keyEl.setAttribute("keyid", key.id);
+			keysEl.appendChild(keyEl);
+		});
 	});
 }
 
@@ -12,14 +47,20 @@ function saveMethod()
 {
 	chrome.storage.sync.set(
 	{
-		"active": document.getElementById("active").checked,
-		"encryption-function": document.getElementById("encryption-function").value,
-		"encryption-password": document.getElementById("encryption-password").value,
-		"decryption-function": document.getElementById("decryption-function").value,
-		"decryption-password": document.getElementById("decryption-password").value
+		"geheimSettings": document.getElementById("settings").value
 	});
 	window.close();
 }
+
+function resetMethod()
+{
+	chrome.storage.sync.set(
+	{
+		"geheimSettings": null
+	});
+	window.close();
+}
+
 
 function cancelMethod()
 {
@@ -27,25 +68,19 @@ function cancelMethod()
 }
 
 
-
-
-
 document.addEventListener("DOMContentLoaded", function()
 {
-	chrome.storage.sync.get(["active", "encryption-function", "encryption-password", "decryption-function", "decryption-password"], function(data)
+	/*
+	chrome.storage.sync.get(["geheimSettings"], function(data)
 	{
-		document.getElementById("active").checked = data["active"];
-		document.getElementById("encryption-function").value = data["encryption-function"];
-		document.getElementById("encryption-password").value = data["encryption-password"];
-		document.getElementById("decryption-function").value = data["decryption-function"];
-		document.getElementById("decryption-password").value = data["decryption-password"];
-	});
+		if (data["geheimSettings"])
+		{
+			document.getElementById("settings").value = data["geheimSettings"];
+		}
+	});*/
+	
 	document.getElementById("save").onclick = saveMethod;
+	document.getElementById("reset").onclick = resetMethod;
 	document.getElementById("cancel").onclick = cancelMethod;
-
-	getCurrentTab(function(tab)
-	{
-		document.getElementById('status').textContent = tab.title;
-	});
 });
 
