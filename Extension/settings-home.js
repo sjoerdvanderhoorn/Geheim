@@ -1,5 +1,7 @@
-var settings = {methods: [], keys: []};
+// Load default settings
+var settings = chrome.extension.getBackgroundPage().defaultSettings;
 
+// Overwrite default settings with settings from storage
 chrome.storage.sync.get(["geheimSettings"], function(data)
 {
 	if(data["geheimSettings"])
@@ -47,20 +49,19 @@ function saveMethod()
 {
 	chrome.storage.sync.set(
 	{
-		"geheimSettings": document.getElementById("settings").value
+		"geheimSettings": JSON.stringify(settings)
 	});
-	window.close();
+	alert("Settings saved");
 }
 
 function resetMethod()
 {
 	chrome.storage.sync.set(
 	{
-		"geheimSettings": null
+		"geheimSettings": chrome.extension.getBackgroundPage().defaultSettings
 	});
-	window.close();
+	alert("Settings reset");
 }
-
 
 function cancelMethod()
 {
@@ -71,16 +72,10 @@ function cancelMethod()
 document.addEventListener("DOMContentLoaded", function()
 {
 	/*
-	chrome.storage.sync.get(["geheimSettings"], function(data)
-	{
-		if (data["geheimSettings"])
-		{
-			document.getElementById("settings").value = data["geheimSettings"];
-		}
-	});*/
-	
 	document.getElementById("save").onclick = saveMethod;
 	document.getElementById("reset").onclick = resetMethod;
 	document.getElementById("cancel").onclick = cancelMethod;
+	*/
 });
+
 

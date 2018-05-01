@@ -1,5 +1,4 @@
 // Settings
-
 var settings = {methods: [], keys: []};
 
 chrome.storage.sync.get(["geheimSettings"], function(data)
@@ -49,7 +48,7 @@ var settings =
 
 // Inject script into page
 
-fetch(chrome.extension.getURL("geheim_content_script_inject.js")).then(function(response)
+fetch(chrome.extension.getURL("page.js")).then(function(response)
 {
 	return response.text();
 }).then(function(data)
@@ -59,4 +58,17 @@ fetch(chrome.extension.getURL("geheim_content_script_inject.js")).then(function(
 	s.textContent = "(function(settings){" + data + "})(" + JSON.stringify(settings) + ")";
 	(document.head || document.documentElement).appendChild(s);
 	s.remove();
+});
+
+window.addEventListener("message", function(event)
+{
+	if (event.source != window)
+	{
+		return;
+	}
+	if (event.data.type && (event.data.type == "FROM_PAGE"))
+	{
+		// Relay message to background script
+		chrome.runtime.sendMessage({action: event.data.text});
+	}
 });

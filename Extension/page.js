@@ -223,8 +223,21 @@ window.addEventListener("click", function(event)
 		el.value = el.originalValue;
 		el.value = el.value;
 	}
+	if (el.getAttribute("geheimaddkey"))
+	{
+		window.postMessage({type: "FROM_PAGE", text: "AddKey"}, "*");
+	}
+	if (el.getAttribute("geheimsettings"))
+	{
+		window.postMessage({type: "FROM_PAGE", text: "OpenSettings"}, "*");
+	}
+	if (el.getAttribute("geheimcancel"))
+	{
+		geheimDialogOverlay.remove();
+		geheimDialogOverlayTarget.removeAttribute("geheim");
+	}
 });
-	
+
 // Process form submit events
 
 window.addEventListener("submit", function(event)
@@ -254,14 +267,14 @@ function geheimDialogEncrypt(target)
 {
 	geheimDialogOverlayTarget = target;
 	geheimDialogOverlay = document.createElement("div");
-	geheimDialogOverlay.className = "geheimDialog";
+	geheimDialogOverlay.className = "geheim";
 	document.body.appendChild(geheimDialogOverlay);
 	
 	var dialog = document.createElement("div");
 	dialog.className = "dialog";
 	geheimDialogOverlay.appendChild(dialog);
 	
-	// Existing keys
+	// Show existing keys
 	
 	var heading1 = document.createElement("h2");
 	heading1.innerText = "Geheim - Select key";
@@ -287,23 +300,22 @@ function geheimDialogEncrypt(target)
 		});
 	});
 
-	// New key
+	// Button actions
 	
-	var addNew = document.createElement("p");
-	addNew.innerText = "To add a new key, open the extension options.";
+	var addNew = document.createElement("button");
+	addNew.setAttribute("geheimaddkey", true);
+	addNew.innerText = "Add New Key";
 	dialog.appendChild(addNew);
 	
-	/*
+	var openSettings = document.createElement("button");
+	openSettings.setAttribute("geheimsettings", true);
+	openSettings.innerText = "Open Settings";
+	dialog.appendChild(openSettings);
 	
-	// Mockup
-	
-	dialog.innerHTML += "<p><label>Method <select><option>Base64</option</select></label></p>";
-	dialog.innerHTML += "<p><label>Key name <input type='text' placeholder='Eg. \"Close Friends\" or \"Family-key\"' /></label></p>";
-	dialog.innerHTML += "<p><label>Key id (<a href=''>generate random</a>)<input type='text' /></label></p>";
-	dialog.innerHTML += "<p><label>Encryption key (<a href=''>generate key pair</a>)<textarea></textarea></label></p>";
-	dialog.innerHTML += "<p><label>Decryption key <textarea></textarea></label></p>";
-	dialog.innerHTML += "<p><button>Save new key</button> <button>Cancel</button></p>";
-	*/
+	var cancel = document.createElement("button");
+	cancel.setAttribute("geheimcancel", true);
+	cancel.innerText = "Cancel";
+	dialog.appendChild(cancel);
 	
 }
 

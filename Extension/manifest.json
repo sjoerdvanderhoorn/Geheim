@@ -4,7 +4,7 @@
 	"description": "Applies encryption on all text you enter on any website in order to make it only accessible by yourself.",
 	"icons":
 	{
-		"128": "icon.png"
+		"128": "images/icon.png"
 	},
 	"background":
 	{
@@ -18,8 +18,8 @@
 		{
 			"run_at": "document_start",
 			"matches": ["http://*/*", "https://*/*", "file://*/*"],
-			"js": ["geheim_content_script.js"],
-			"css": ["geheim_content_script_inject.css"]
+			"js": ["content_script.js"],
+			"css": ["popup.css", "page.css"]
 		}
 	],
 	"web_accessible_resources":
@@ -27,7 +27,8 @@
 		"images/safe.png",
 		"images/unsafe.png",
 		"images/hover.png",
-		"geheim_content_script_inject.js"
+		"images/overlay.png",
+		"page.js"
 	],
 	"permissions":
 	[
@@ -37,9 +38,8 @@
 	"browser_action":
 	{
 		"default_name": "Geheim",
-		"default_icon": "geheim.png",
-		"default_popup": "popup.html"
+		"default_icon": "images/geheim.png"
 	},
 	"manifest_version": 2,
-	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self';"
+	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:;"
 }
