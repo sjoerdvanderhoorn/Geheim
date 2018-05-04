@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Geheim - Encryption Key</title>
+		<link href="popup.css" rel="stylesheet" type="text/css">
+		<link href="settings-key.css" rel="stylesheet" type="text/css">
+		<script src="settings-key.js"></script>
+	</head>
+	<body>
+		<div class="geheim">
+			<div class="dialog">
+				<h2>Encryption Key</h2>
+				<p><label>Method<select id="methodid" required><option selected="true" disabled>--- Select ---</option></select></label></p>
+				<p><label>Key name<input type="text" id="name" placeholder="Eg. &quot;Close Friends&quot; or &quot;Family-key&quot;" required /></label></p>
+				<p>
+					<span class="right"><a href="#" id="randomId">generate random key code</a></span>
+					<label>Key code<input type="text" id="id" required /></label>
+				</p>
+				<p>
+					<span class="right"><a href="#" id="generateKeyPair">generate key pair</a></span>
+					<label>Encryption key<textarea id="encryptkey" required></textarea></label>
+				</p>
+				<p><label>Decryption key<textarea id="decryptkey" required></textarea></label></p>
+				<p>
+					<button id="save">Save Key</button>
+					<button id="delete">Delete Key</button>
+					<button id="cancel">Cancel</button>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

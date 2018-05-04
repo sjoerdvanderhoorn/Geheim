@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)
 	{
 		var settingsAdd = chrome.tabs.create(
 		{
-			url: "settings-add.html",
+			url: "settings-key.html",
 			index: sender.tab.index + 1,
 			openerTabId: sender.tab.id
 		});
@@ -37,21 +37,21 @@ var defaultSettings =
 			"name": "Base 64",
 			"encrypt": "function(data, key){return btoa(data);}",
 			"decrypt": "function(data, key){return atob(data);}",
-			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+			"generateKeys": "({encrypt:Math.random(), decrypt:Math.random()})"
 		},
 		{
 			"id": "b85",
 			"name": "Base 85",
 			"encrypt": "function(data, key){return btoa(data);}",
 			"decrypt": "function(data, key){return atob(data);}",
-			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+			"generateKeys": "({encrypt:Math.random(), decrypt:Math.random()})"
 		},
 		{
 			"id": "asc",
 			"name": "ASCII",
 			"encrypt": "function(data, key){return btoa(data);}",
 			"decrypt": "function(data, key){return atob(data);}",
-			"generateKeys": "function(){return {encrypt:0, decrypt:0}}"
+			"generateKeys": "({encrypt:Math.random(), decrypt:Math.random()})"
 		}
 	],
 	"keys":

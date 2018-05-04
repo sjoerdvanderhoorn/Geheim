@@ -37,9 +37,13 @@ function getKeys()
 			var keyEl = document.createElement("li");
 			keyEl.className = "key";
 			keyEl.innerHTML = key.name;
-			keyEl.setAttribute("geheimdialog", true);
+			//keyEl.setAttribute("geheimdialog", true);
 			keyEl.setAttribute("methodid", key.methodid);
 			keyEl.setAttribute("keyid", key.id);
+			keyEl.onclick = function()
+			{
+				document.location.href = "settings-key.html?methodid=" + key.methodid + "&keyid=" + key.id;
+			}
 			keysEl.appendChild(keyEl);
 		});
 	});
@@ -71,11 +75,7 @@ function cancelMethod()
 
 document.addEventListener("DOMContentLoaded", function()
 {
-	/*
-	document.getElementById("save").onclick = saveMethod;
 	document.getElementById("reset").onclick = resetMethod;
-	document.getElementById("cancel").onclick = cancelMethod;
-	*/
 });
 
 

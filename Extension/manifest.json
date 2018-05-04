@@ -41,5 +41,5 @@
 		"default_icon": "images/geheim.png"
 	},
 	"manifest_version": 2,
-	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self' data:;"
+	"content_security_policy": "default-src 'none'; style-src 'self'; script-src 'self' 'unsafe-eval'; img-src 'self' data:;"
 }
