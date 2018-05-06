@@ -194,25 +194,18 @@ window.addEventListener("load", function()
 });
 
 // Bind click event to toggle encryption status
+window.addEventListener("dblclick", function(event)
+{
+	var el = event.target;
+	toggleGeheimStatus(el);
+});
 
 window.addEventListener("click", function(event)
 {
 	var el = event.target;
-	if (el.matches("textarea, input[type=text], input:not([type])"))
+	if (event.offsetY < 20 && (el.clientWidth - event.offsetX) < 20)
 	{
-		if (event.offsetY < 20 && (el.clientWidth - event.offsetX) < 20)
-		{
-			if (el.getAttribute("geheim"))
-			{
-				el.removeAttribute("geheim");
-			}
-			else
-			{
-				geheimDialogEncrypt(el);
-				el.setAttribute("geheim", true);
-			}
-			el.value = el.originalValue;
-		}
+		toggleGeheimStatus(el);
 	}
 	// Dialog events
 	if (el.getAttribute("geheimdialog"))
@@ -237,6 +230,23 @@ window.addEventListener("click", function(event)
 		geheimDialogOverlayTarget.removeAttribute("geheim");
 	}
 });
+
+function toggleGeheimStatus(el)
+{
+	if (el.matches("textarea, input[type=text], input:not([type])"))
+	{
+		if (el.getAttribute("geheim"))
+		{
+			el.removeAttribute("geheim");
+		}
+		else
+		{
+			geheimDialogEncrypt(el);
+			el.setAttribute("geheim", true);
+		}
+		el.value = el.originalValue;
+	}
+}
 
 // Process form submit events
 

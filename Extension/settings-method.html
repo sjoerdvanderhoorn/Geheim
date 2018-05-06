@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Geheim - Cryptographic Method</title>
+		<link href="popup.css" rel="stylesheet" type="text/css">
+		<link href="settings-method.css" rel="stylesheet" type="text/css">
+		<script src="settings-method.js"></script>
+	</head>
+	<body>
+		<div class="geheim">
+			<div class="dialog">
+				<h2>Cryptographic Method</h2>
+				<p><label>Method name<input type="text" id="name" placeholder="Eg. &quot;AES&quot; or &quot;My Own Secret Encryption Method&quot;" required /></label></p>
+				<p>
+					<span class="right"><a href="#" id="randomId">generate random method code</a></span>
+					<label>Method code<input type="text" id="id" required /></label>
+				</p>
+				<p><label>Encryption function<textarea id="encrypt" required></textarea></label></p>
+				<p><label>Decryption function<textarea id="decrypt" required></textarea></label></p>
+				<p><label>Key generation function<textarea id="generateKeys" required></textarea></label></p>
+				<p>
+					<button id="save">Save Method</button>
+					<button id="delete">Delete Method</button>
+					<button id="cancel">Cancel</button>
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

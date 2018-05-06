@@ -12,11 +12,11 @@ chrome.storage.sync.get(["geheimSettings"], function(data)
 	if(data["geheimSettings"])
 	{
 		settings = JSON.parse(data["geheimSettings"]);
-		getMethods();
-		if (methodid && keyid)
-		{
-			getKey();
-		}
+	}
+	getMethods();
+	if (methodid && keyid)
+	{
+		getKey();
 	}
 });
 
@@ -63,6 +63,11 @@ function generateKeyPair()
 
 function saveMethod()
 {
+	if (!document.getElementById("methodid").value || !document.getElementById("name").value || !document.getElementById("id").value)
+	{
+		alert("Enter all required fields to save:\n\n- Method\n- Key name\n- Key code");
+		return false;
+	}
 	if (methodid && keyid)
 	{
 		// Update
@@ -103,29 +108,31 @@ function saveMethod()
 
 function deleteMethod()
 {
-	if (methodid && keyid)
+	if (window.confirm("Are you sure you want to delete this key?"))
 	{
-		console.log(settings.keys)
-		// Delete
-		for (var i=0; i < settings.keys.length; i++)
+		if (methodid && keyid)
 		{
-			if (settings.keys[i].methodid == methodid && settings.keys[i].id == keyid)
+			// Delete
+			for (var i=0; i < settings.keys.length; i++)
 			{
-				settings.keys.splice(i, 1);
+				if (settings.keys[i].methodid == methodid && settings.keys[i].id == keyid)
+				{
+					settings.keys.splice(i, 1);
+				}
 			}
+			chrome.storage.sync.set(
+			{
+				"geheimSettings": JSON.stringify(settings)
+			});
 		}
-		chrome.storage.sync.set(
+		if (window.history.length == 1)
 		{
-			"geheimSettings": JSON.stringify(settings)
-		});
-	}
-	if (window.history.length == 1)
-	{
-		window.close();
-	}
-	else
-	{
-		window.history.back();
+			window.close();
+		}
+		else
+		{
+			window.history.back();
+		}
 	}
 }
 

@@ -58,6 +58,12 @@ div.geheim li.key:hover
 	background-color: #f1f1f1;
 	cursor: pointer;
 }
+div.geheim ul#methods li:hover
+{
+	background-color: #f1f1f1;
+	cursor: pointer;
+}
+
 
 div.geheim h2
 {

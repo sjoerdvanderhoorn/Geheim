@@ -7,9 +7,9 @@ chrome.storage.sync.get(["geheimSettings"], function(data)
 	if(data["geheimSettings"])
 	{
 		settings = JSON.parse(data["geheimSettings"]);
-		getMethods();
-		getKeys();
 	}
+	getMethods();
+	getKeys();
 });
 
 function getMethods()
@@ -19,6 +19,11 @@ function getMethods()
 	{
 		var methodEl = document.createElement("li");
 		methodEl.innerHTML = method.name;
+		methodEl.setAttribute("methodid", method.id);
+		methodEl.onclick = function()
+		{
+			document.location.href = "settings-method.html?methodid=" + method.id;
+		}
 		methodsEl.appendChild(methodEl);
 	});
 }
@@ -37,7 +42,6 @@ function getKeys()
 			var keyEl = document.createElement("li");
 			keyEl.className = "key";
 			keyEl.innerHTML = key.name;
-			//keyEl.setAttribute("geheimdialog", true);
 			keyEl.setAttribute("methodid", key.methodid);
 			keyEl.setAttribute("keyid", key.id);
 			keyEl.onclick = function()
@@ -60,11 +64,15 @@ function saveMethod()
 
 function resetMethod()
 {
-	chrome.storage.sync.set(
+	if (window.confirm("Are you sure you want to reset? This will remove all your settings and ENCRYPTION KEYS!"))
 	{
-		"geheimSettings": chrome.extension.getBackgroundPage().defaultSettings
-	});
-	alert("Settings reset");
+		settings = chrome.extension.getBackgroundPage().defaultSettings;
+		chrome.storage.sync.set(
+		{
+			"geheimSettings": JSON.stringify(settings)
+		});
+		document.location.reload();
+	}
 }
 
 function cancelMethod()
