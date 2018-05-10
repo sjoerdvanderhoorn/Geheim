@@ -1,7 +1,5 @@
-// Load default settings
-var settings = chrome.extension.getBackgroundPage().defaultSettings;
-
-// Overwrite default settings with settings from storage
+// Load settings
+var settings = null;
 chrome.storage.local.get(["geheimSettings"], function(data)
 {
 	if(data["geheimSettings"])

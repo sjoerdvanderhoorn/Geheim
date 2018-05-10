@@ -1,5 +1,5 @@
 // Load default settings
-var settings = chrome.extension.getBackgroundPage().defaultSettings;
+var settings = null;
 
 // Page parameters
 var currentUrl = new URL(window.location.href);
