@@ -2,7 +2,7 @@
 var settings = chrome.extension.getBackgroundPage().defaultSettings;
 
 // Overwrite default settings with settings from storage
-chrome.storage.sync.get(["geheimSettings"], function(data)
+chrome.storage.local.get(["geheimSettings"], function(data)
 {
 	if(data["geheimSettings"])
 	{
@@ -55,7 +55,7 @@ function getKeys()
 
 function saveMethod()
 {
-	chrome.storage.sync.set(
+	chrome.storage.local.set(
 	{
 		"geheimSettings": JSON.stringify(settings)
 	});
@@ -67,7 +67,7 @@ function resetMethod()
 	if (window.confirm("Are you sure you want to reset? This will remove all your settings and ENCRYPTION KEYS!"))
 	{
 		settings = chrome.extension.getBackgroundPage().defaultSettings;
-		chrome.storage.sync.set(
+		chrome.storage.local.set(
 		{
 			"geheimSettings": JSON.stringify(settings)
 		});

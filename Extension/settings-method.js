@@ -7,7 +7,7 @@ var methodid = currentUrl.searchParams.get("methodid");
 var keyid = currentUrl.searchParams.get("keyid");
 
 // Overwrite default settings with settings from storage
-chrome.storage.sync.get(["geheimSettings"], function(data)
+chrome.storage.local.get(["geheimSettings"], function(data)
 {
 	if(data["geheimSettings"])
 	{
@@ -68,7 +68,7 @@ function saveMethod()
 			"generateKeys": document.getElementById("generateKeys").value
 		});
 	}
-	chrome.storage.sync.set(
+	chrome.storage.local.set(
 	{
 		"geheimSettings": JSON.stringify(settings)
 	});
@@ -97,7 +97,7 @@ function deleteMethod()
 					settings.keys.splice(i, 1);
 				}
 			}
-			chrome.storage.sync.set(
+			chrome.storage.local.set(
 			{
 				"geheimSettings": JSON.stringify(settings)
 			});
