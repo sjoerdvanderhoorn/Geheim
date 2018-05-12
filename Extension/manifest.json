@@ -28,7 +28,9 @@
 		"images/unsafe.png",
 		"images/hover.png",
 		"images/overlay.png",
-		"page.js"
+		"page.js",
+		"settings-popup.js",
+		"settings-popup.html"
 	],
 	"permissions":
 	[

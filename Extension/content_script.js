@@ -12,6 +12,26 @@ chrome.storage.local.get(["geheimSettings"], function(data)
 
 // Inject script into page
 
+fetch(chrome.extension.getURL('settings-popup.html')).then(function(response)
+{
+	return response.text();
+}).then(function(data)
+{
+    document.body.innerHTML += data;
+});
+
+fetch(chrome.extension.getURL("settings-popup.js")).then(function(response)
+{
+	return response.text();
+}).then(function(data)
+{
+	var s = document.createElement("SCRIPT");
+	s.setAttribute('type', 'text/javascript');
+	s.textContent = data;
+	(document.head || document.documentElement).appendChild(s);
+	s.remove();
+});
+
 fetch(chrome.extension.getURL("page.js")).then(function(response)
 {
 	return response.text();

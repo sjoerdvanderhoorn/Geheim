@@ -7,13 +7,6 @@ var encryptFunction = function(input, el)
 	// Reset Regexp counter and parse input
 	var methodid = el.methodid;
 	var keyid = el.keyid;
-	/*
-	if(!methodid || !keyid)
-	{
-		methodid = el.methodid = window.prompt("Enter MethodID", "b64");
-		keyid = el.keyid = window.prompt("Enter KeyID", "10000");
-	}
-	*/
 	// Process
 	if (settings.keys.find(k => k.id == keyid && k.methodid == methodid))
 	{
@@ -207,28 +200,6 @@ window.addEventListener("click", function(event)
 	{
 		toggleGeheimStatus(el);
 	}
-	// Dialog events
-	if (el.getAttribute("geheimdialog"))
-	{
-		geheimDialogOverlay.remove();
-		geheimDialogOverlayTarget.methodid = el.getAttribute("methodid");
-		geheimDialogOverlayTarget.keyid = el.getAttribute("keyid");
-		el.value = el.originalValue;
-		el.value = el.value;
-	}
-	if (el.getAttribute("geheimaddkey"))
-	{
-		window.postMessage({type: "FROM_PAGE", text: "AddKey"}, "*");
-	}
-	if (el.getAttribute("geheimsettings"))
-	{
-		window.postMessage({type: "FROM_PAGE", text: "OpenSettings"}, "*");
-	}
-	if (el.getAttribute("geheimcancel"))
-	{
-		geheimDialogOverlay.remove();
-		geheimDialogOverlayTarget.removeAttribute("geheim");
-	}
 });
 
 function toggleGeheimStatus(el)
@@ -241,8 +212,12 @@ function toggleGeheimStatus(el)
 		}
 		else
 		{
-			geheimDialogEncrypt(el);
-			el.setAttribute("geheim", true);
+			geheimPopup(el, 
+			{
+				// Trim settings to only send non trivial information
+				keys: settings.keys.map(function(k){return {id:k.id, name:k.name, methodid:k.methodid}}),
+				methods: settings.methods.map(function(m){return {id:m.id, name:m.name}})
+			});
 		}
 		el.value = el.originalValue;
 	}
@@ -264,72 +239,3 @@ window.addEventListener("submit", function(event)
 		});
 	}, 0);
 }, true);
-
-
-
-
-// Geheim Dialog
-
-var geheimDialogOverlay = null;
-var geheimDialogOverlayTarget = null;
-
-function geheimDialogEncrypt(target)
-{
-	geheimDialogOverlayTarget = target;
-	geheimDialogOverlay = document.createElement("div");
-	geheimDialogOverlay.className = "geheim";
-	document.body.appendChild(geheimDialogOverlay);
-	
-	var dialog = document.createElement("div");
-	dialog.className = "dialog";
-	geheimDialogOverlay.appendChild(dialog);
-	
-	// Show existing keys
-	
-	var heading1 = document.createElement("h2");
-	heading1.innerText = "Geheim - Select key";
-	dialog.appendChild(heading1);
-	
-	var existingKeys = document.createElement("ul");
-	dialog.appendChild(existingKeys);
-	settings.methods.sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function (method)
-	{
-		var methodEl = document.createElement("li");
-		methodEl.className = "method";
-		methodEl.innerHTML = method.name;
-		existingKeys.appendChild(methodEl);
-		settings.keys.filter(k => k.methodid == method.id).sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function (key)
-		{
-			var keyEl = document.createElement("li");
-			keyEl.className = "key";
-			keyEl.innerHTML = key.name;
-			keyEl.setAttribute("geheimdialog", true);
-			keyEl.setAttribute("methodid", key.methodid);
-			keyEl.setAttribute("keyid", key.id);
-			existingKeys.appendChild(keyEl);
-		});
-	});
-
-	// Button actions
-	
-	var addNew = document.createElement("button");
-	addNew.setAttribute("geheimaddkey", true);
-	addNew.innerText = "Add New Key";
-	dialog.appendChild(addNew);
-	
-	var openSettings = document.createElement("button");
-	openSettings.setAttribute("geheimsettings", true);
-	openSettings.innerText = "Open Settings";
-	dialog.appendChild(openSettings);
-	
-	var cancel = document.createElement("button");
-	cancel.setAttribute("geheimcancel", true);
-	cancel.innerText = "Cancel";
-	dialog.appendChild(cancel);
-	
-}
-
-
-
-
-
