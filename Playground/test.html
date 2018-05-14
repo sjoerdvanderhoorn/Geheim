@@ -33,11 +33,11 @@
 				<input type="text" id="username" /> (Empty username field)
 				<input type="text" name="username" /> (Empty username field)
 				<input type="text" name="username" value="My username" /> (Prepopulated username field)
-				<input type="text" name="username" value=":geheim:b64:10000:U2ltcGxlIHRleHQ=:" /> (Prepopulated encrypted username field)
+				<input type="text" name="username" value=":geheim:rsajsencrypt:czxdii:D6dLr4IhQUSLRXPJoDR94XtXTT9kjt7lMkUJ7yXlTz0ANVWECZJ5hi9S+ajYhvVsDFVdiQRFJj9wIltlNMsFLhIHvapW+YPPEtyWP4881KAB3RGrQXuCy4uTDpXl+R2gS15681/Y5+ou0o7N4IsQWQ2zcQnNxFKDLVf20bZ/z6w=:" /> (Prepopulated encrypted username field)
 			</div>
 			<div>
 				<textarea id="firsttextid" name="firsttextname" onclick="this.style.color=['green','red','blue','yellow'].splice(Math.random()*4,1).toString();;">Text area with some random text. Click to change color.</textarea>
-				<textarea id="secondtextid" name="firsttextname">:geheim:b64:10000:U2ltcGxlIHRleHQ=:</textarea>
+				<textarea id="secondtextid" name="firsttextname">:geheim:rsajsencrypt:czxdii:pZheXs7XqFbJKz9HF91jZFZ5VlLNd6e8S17ZloEEkX0jXa92M1+quRvfToz7OLj7GvByjkatZlfuiNZjpfhLntRbAWC3X/lJBJlMOeIqxge16WNjV6JNAF1X1RMxuNjgW3QTB8eIw8bDYRizNIOvCT9ffd7/AfVv8RnqbSUjO6w=:</textarea>
 			</div>
 			<div id="readTextareas">
 				<input type="button" value="Read First Textarea" onclick="alert(document.querySelectorAll('#firsttextid')[0].value)" />
@@ -50,24 +50,24 @@
 				<input type="text" value="Click this box to delete" onclick="this.parentNode.removeChild(this);" />
 			</div>
 			<p>
-				1:geheim:b64:10000:U2ltcGxlIHRleHQ=:2:geheim:b64:10000:U2ltcGxlIHRleHQ=:3:geheim:b64:10000:U2ltcGxlIHRleHQ=:
+				1:geheim:rsajsencrypt:czxdii:TH2jae3wJ4x7RvkMzyRzQkp6B3+gErz38QS2T8Zn8a/BQvn0Uhy5yN9XDcRbXuf2Q4Rx6iR9CHKoor8cn9+meTYx2Q0JrKSv1KGeOhsKV95LPmmcGqaVIO7fGOaqMTkymr+x8O0JJGvdU3CUxi+RCR5QC6DLVZfcYsWyJxdwoNc=:2:geheim:rsajsencrypt:czxdii:AzomwgeEdtrwpCmbUZuN2Dsnyp1e54jA6ZgxQGHI9gy1MrFQC/j0WH7ntYwn4BfdzP2jI3brThkmncNEZWfO6trhuXZw2XjBkuHEFaXXMmxcxs1Hbg0uNKR0hfDG0nGeXUUmeF4aceBh1R8z2tHz1N/Va0NfbElHSUJaPymJQE8=:3:geheim:rsajsencrypt:czxdii:wFpZp08thgZMx6kDk2CyARJQC37RomQi9LDATfA0o7Y0ULLWpdmOnJI3xOws/Pym4wbX/nzsTCAOebWTf0/DO+z9jXs5HTnnQhuUg4/IRPPY55bGvUxjnV/Kg5lteer8T5W7fhoJF2AqytYzNytFLdgrP9nXIc8a/i2H2pibeBI=:
 				<b>This text was never encrypted.</b>
-				:geheim:b64:10000:QW5vdGhlciBzaW1wbGUgdGV4dA==:
+				:geheim:aessjcl:xqiipuvt:eyJpdiI6InpsNXVHZHNZcHEzcllMd2hVUEhmSlE9PSIsInYiOjEsIml0ZXIiOjEwMDAwLCJrcyI6MTI4LCJ0cyI6NjQsIm1vZGUiOiJjY20iLCJhZGF0YSI6IiIsImNpcGhlciI6ImFlcyIsInNhbHQiOiJUN2kxNG9mY1ZrYz0iLCJjdCI6IklHdEhnbmJ3bTJVbCswWT0ifQ==:
 				<b>Neither was this.</b>
-				:geheim:b64:10000:U2ltcGxlIHRleHQ=:
+				:geheim:aessjcl:dyhfmkbz:eyJpdiI6Inl3NFpoV21sRFBnNHh6cjRkakkxbnc9PSIsInYiOjEsIml0ZXIiOjEwMDAwLCJrcyI6MTI4LCJ0cyI6NjQsIm1vZGUiOiJjY20iLCJhZGF0YSI6IiIsImNpcGhlciI6ImFlcyIsInNhbHQiOiJOTkRuSlRSQ3NRbz0iLCJjdCI6Iit3c0xsR05WNGRZUERFdz0ifQ==:
 			</p>
 			<p>
-				START<span>:geheim:b64:10000:U2ltcGxlIHRleHQ=:</span>END
-				START<span>:geheim:unknown1:unknown2:Unknownenctyption:</span>END
+				START<span>:geheim:rsajsencrypt:czxdii:oEyNwW4tPhM3mvtTHG4X8mbViN03CO2znPwi1MTrJYuvbgAocqBR/IL0elRhMWy4ma3N8R2weIVpwts0nALkcQkk+7b1AaPAmmlCCjh5Y+BPCKaEFLWuM/ZYH6Xb5TjfcgL8EQAeZ/l5eLDJTZhEzPqolnWSKCkqmOvzfICBukM=:</span>END
+				START<span>:geheim:unknown1:unknown2:Unknownencryption:</span>END
 			</p>
 		</form>
 		<hr>
 		<textarea style="width: 300px; height: 40px;">:geheim:unknown:1sdf0000:somethingbad:</textarea><br/>
 		<hr>
 		<form action="https://httpbin.org/post" method="post" target="internalframe" id="myForm">
-			<textarea name="test1" id="test1" style="width: 300px; height: 40px;">:geheim:b64:10000:VEVTVA==:</textarea><span id="output1"></span><br/>
+			<textarea name="test1" id="test1" style="width: 300px; height: 40px;">:geheim:rsajsencrypt:czxdii:NoykvBAAJVVZtmvvdWe1caEz/FRJeCiedyz7Lh31EH9wdtKwKZexCxSWTYSqVPK3YHgH9gjKsDnj6leqIh3q0pgbtfsdU4sysrv/+5+araeuWz7uV0dnIYYbBv0340DNwdzc9X0ZKv6SL1A/YZInjrNdbghqKEv8Zkt8MUw/pQc=:</textarea><span id="output1"></span><br/>
 			<textarea name="test2" id="test2" style="width: 300px; height: 40px;">unencrypted value 1</textarea><span id="output2"></span><br/>
-			<textarea name="test3" id="test3" style="width: 300px; height: 40px;">:geheim:b64:10000:U0VDT05EIFRFU1Q=:</textarea><span id="output3"></span><br/>
+			<textarea name="test3" id="test3" style="width: 300px; height: 40px;">:geheim:rsajsencrypt:czxdii:alLU9CC2mQewY0tQsdXmO02TKPpeWe2A+AzYygBeGolUHwv6cBx8KoOgNcO/C4kSMuBBYZNp0HMnXm4CHyomEcefIUY32jB89ZFw1s11ickkDsPj5iF9/lAwEUHdv/JS9S5qnVqtkG/z382agDSAGW0tY7xKeU3NebAHwpHnCfY=:</textarea><span id="output3"></span><br/>
 			<textarea name="test4" id="test4" style="width: 300px; height: 40px;">unencrypted value 2</textarea><span id="output4"></span><br/>
 			<input name="test5" id="test5" value="unencrypted value 3" />
 			<input name="test6" id="test6" value=":geheim:b64:10000:U2ltcGxlIHRleHQ=:" />
