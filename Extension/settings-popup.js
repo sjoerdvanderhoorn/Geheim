@@ -6,8 +6,13 @@ function geheimPopup(target, settings)
 	geheimPopupEl = document.getElementById("geheim-popup");
 	geheimPopupTarget = target;
 	geheimPopupEl.style.display = "inline";
-	// Show existing keys	
 	var existingKeys = document.querySelector("#geheim-popup #keys");
+	// Clear existing keys
+	while (existingKeys.firstChild)
+	{
+		existingKeys.removeChild(existingKeys.firstChild);
+	}
+	// Show existing keys
 	settings.methods.sort(function(a, b){if (a.name < b.name){return -1;}else if (a.name > b.name){return 1;}else{return 0;}}).forEach(function (method)
 	{
 		var methodEl = document.createElement("li");
@@ -52,4 +57,16 @@ window.addEventListener("click", function(event)
 	{
 		geheimPopupEl.style.display = "none";
 	}
+	if (el.id == "geheim-popup")
+	{
+		geheimPopupEl.style.display = "none";
+	}
 });
+
+document.onkeydown = function(event)
+{
+    if (event.keyCode == 27) // ESC key
+	{
+        geheimPopupEl.style.display = "none";
+    }
+};
