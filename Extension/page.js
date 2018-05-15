@@ -1,6 +1,20 @@
+// Placeholders
 var encryptionPattern = new RegExp(":geheim:([A-Za-z0-9+/=]*):([A-Za-z0-9+/=]*):([A-Za-z0-9+/=]*):", "g");
 
-// Placeholders
+// Run eval() in different scope, provide non blocking error handling.
+function methodExec(code, input, key)
+{
+	try
+	{
+		eval("var method = " + code);
+		return method(input, key);
+	}
+	catch(error)
+	{
+		console.error("Error in encryption/decryption method:", error);
+		return "Error in encryption/decryption method";
+	}
+}
 
 var encryptFunction = function(input, el)
 {
@@ -10,10 +24,10 @@ var encryptFunction = function(input, el)
 	// Process
 	if (settings.keys.find(k => k.id == keyid && k.methodid == methodid))
 	{
-		eval("var method = " + settings.methods.find(m => m.id == methodid).encrypt);
+		var methodCode = settings.methods.find(m => m.id == methodid).encrypt;
 		var encryptkey = settings.keys.find(k => k.id == keyid && k.methodid == methodid).encryptkey;
-		var data = method(input, encryptkey);
-		return ":geheim:" + methodid + ":" + keyid + ":" + data + ":";
+		var outputData = methodExec(methodCode, input, encryptkey);
+		return ":geheim:" + methodid + ":" + keyid + ":" + outputData + ":";
 	}
 	else
 	{
@@ -37,9 +51,10 @@ var decryptFunction = function(input, el)
 	// Process
 	if (settings.keys.find(k => k.id == keyid && k.methodid == methodid))
 	{
-		eval("var method = " + settings.methods.find(m => m.id == methodid).decrypt);
+		var methodCode = settings.methods.find(m => m.id == methodid).decrypt;
 		var decryptkey = settings.keys.find(k => k.id == keyid && k.methodid == methodid).decryptkey;
-		return {processed: true, data: method(data, decryptkey)};
+		var outputData = methodExec(methodCode, data, decryptkey);
+		return {processed: true, data: outputData};
 	}
 	else
 	{
